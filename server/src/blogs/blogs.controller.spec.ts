@@ -38,9 +38,7 @@ describe('BlogsController', () => {
       objectID: '1',
       title: 'Example Blog Title',
       author: 'John Doe',
-      points: 10,
-      num_comments: 5,
-      story_text: 'Example story_text result',
+      story_url: 'some story',
     };
 
     jest.spyOn(service, 'getBlogById').mockResolvedValue(blog);
@@ -55,18 +53,14 @@ describe('BlogsController', () => {
         objectID: '1',
         title: 'Example Blog Title',
         author: 'John Doe',
-        points: 10,
-        num_comments: 5,
-        story_text: 'Example story_text',
+        story_url: 'some story',
       },
       {
         created_at: '2021-03-11T21:38:36Z',
         objectID: '2',
         title: 'Example Blog Title 2',
         author: 'Jane Doe',
-        points: 1,
-        num_comments: 51,
-        story_text: 'Example story_text',
+        story_url: 'some story',
       },
     ];
 
@@ -88,19 +82,15 @@ describe('BlogsController', () => {
       objectID: '1',
       title: 'Example Blog Title',
       author: 'John Doe',
-      points: 10,
-      num_comments: 5,
-      story_text: 'Example story_text result',
+      story_url: 'some story',
     };
 
     const createdBlog: Blog = {
       created_at: '2021-03-11T21:38:36Z',
       objectID: '1',
       title: 'Example Blog Title',
+      story_url: 'some story',
       author: 'John Doe',
-      points: 10,
-      num_comments: 5,
-      story_text: 'Example story_text result',
     };
 
     jest.spyOn(service, 'createBlog').mockResolvedValue(createdBlog);
@@ -113,18 +103,14 @@ describe('BlogsController', () => {
     const updateBlogDto: UpdateBlogDto = {
       title: 'Example test',
       author: 'John Doe test',
-      points: 11,
-      story_text: 'Example story_text for testing',
     };
 
     const updatedBlog: Blog = {
       created_at: '2021-03-11T21:38:36Z',
       objectID: '1',
       title: 'Example Blog Title',
+      story_url: 'some story',
       author: 'John Doe',
-      points: 10,
-      num_comments: 5,
-      story_text: 'Example story_text result',
     };
     jest.spyOn(service, 'updateBlog').mockResolvedValue(updatedBlog);
     const result = await controller.updateBlog(id, updateBlogDto);

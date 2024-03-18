@@ -57,9 +57,7 @@ describe('BlogsService', () => {
       objectID: '1',
       title: 'Example Blog Title',
       author: 'John Doe',
-      points: 10,
-      num_comments: 5,
-      story_text: 'Example story_text result',
+      story_url: 'some story',
     };
 
     const mockSavedBlog = {
@@ -129,10 +127,9 @@ describe('BlogsService', () => {
           objectID: '1',
           title: 'Remote Blog 1',
           author: 'John Doe',
-          points: 10,
-          num_comments: 5,
+          story_url: 'some story',
           _highlightResult: {
-            story_text: {
+            story_title: {
               value: 'Example story_text result',
             },
           },

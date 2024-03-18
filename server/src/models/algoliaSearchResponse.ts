@@ -8,9 +8,7 @@ export interface AlgoliaBlog {
   title: string;
   author: string;
   objectID: string;
-  story_url: {
-    value: string;
-  };
+  story_url: string;
   _highlightResult: {
     story_title?: {
       value?: string;

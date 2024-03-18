@@ -7,7 +7,4 @@ export class UpdateBlogDto {
   @IsString()
   @IsOptional()
   author?: string;
-  @IsString()
-  @IsOptional()
-  points?: number;
 }
