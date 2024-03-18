@@ -48,7 +48,7 @@ function App() {
         return (
           <div class=" cursor-pointer mx-4  bg-[#fff] hover:bg-[#fafafa]  border-2 border-x-transparent border-t-transparent border-[#ccc">
             <div class="flex mx-3 my-5">
-              <span class="flex-1 w-70 text-red-200 text-[#333]">
+              <span class="flex-1 w-70 text-[#333]">
                 {blog.title} - <span class="text-[#999]">{blog.author}</span>-
               </span>
               <div class="flex-none w-22">{dateToShow}</div>
