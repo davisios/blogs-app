@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 import { CreateBlogDto } from './dto/CreateBlog.dto';
 import { UpdateBlogDto } from './dto/updateBlogDto';
-import { Blog } from 'src/models/Blog.schema';
+import { Blog } from './schemas/Blog.schema';
 
 @Controller('blogs')
 export class BlogsController {

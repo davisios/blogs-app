@@ -1,7 +1,7 @@
 import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Blog, BlogsSchema } from 'src/models/Blog.schema';
+import { Blog, BlogsSchema } from './schemas/Blog.schema';
 import { BlogsService } from './blogs.service';
 import { BlogsController } from './blogs.controller';
 

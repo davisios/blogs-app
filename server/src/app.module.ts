@@ -7,7 +7,9 @@ import { ScheduleModule } from '@nestjs/schedule';
 @Module({
   imports: [
     ScheduleModule.forRoot(),
-    MongooseModule.forRoot('mongodb://127.0.0.1/blogs'),
+    MongooseModule.forRoot(
+      'mongodb://mongo_db_blog:27017/blogs?authSource=admin',
+    ),
     HttpModule.register({
       timeout: 5000,
       maxRedirects: 5,

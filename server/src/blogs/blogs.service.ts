@@ -1,18 +1,18 @@
 import { HttpService } from '@nestjs/axios';
 import { HttpException, Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Blog } from '../models/Blog.schema';
 import { Model } from 'mongoose';
 import { CreateBlogDto } from './dto/CreateBlog.dto';
 import { catchError, firstValueFrom } from 'rxjs';
 import {
   AlgoliaBlog,
   AlgoliaSearchResponse,
-} from 'src/models/AlgoliaSearchResponse';
+} from './models/AlgoliaSearchResponse';
 import { AxiosError } from 'axios';
 import { UpdateBlogDto } from './dto/updateBlogDto';
 import mongoose from 'mongoose';
 import { Cron } from '@nestjs/schedule';
+import { Blog } from './schemas/Blog.schema';
 
 @Injectable()
 export class BlogsService {
@@ -80,13 +80,12 @@ export class BlogsService {
       lastBlog._highlightResult?.story_title?.value || lastBlog.title;
     const story_url = lastBlog.story_url;
     const currentLastBlog: CreateBlogDto = currentBlogs[0];
-    if (currentLastBlog.objectID !== lastBlog.objectID) {
-      const newBlog = new this.BlogModel({
+    if (currentLastBlog?.objectID !== lastBlog.objectID) {
+      await this.createBlog({
         ...lastBlog,
         title,
         story_url,
       });
-      await this.createBlog(newBlog);
     }
     return this.BlogModel.find().sort({ created_at: 'desc' });
   }

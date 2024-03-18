@@ -3,7 +3,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { BlogsController } from './blogs.controller';
 import { BlogsService } from './blogs.service';
 import { CreateBlogDto } from './dto/CreateBlog.dto';
-import { Blog } from '../models/Blog.schema';
+import { Blog } from './schemas/Blog.schema';
 import { getModelToken } from '@nestjs/mongoose';
 import { UpdateBlogDto } from './dto/updateBlogDto';
 

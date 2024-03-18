@@ -3,12 +3,12 @@ import { BlogsService } from './blogs.service';
 import { getModelToken } from '@nestjs/mongoose';
 import { HttpService } from '@nestjs/axios';
 import { of } from 'rxjs';
-import { Blog } from '../models/Blog.schema';
+import { Blog } from './schemas/Blog.schema';
 import { HttpException } from '@nestjs/common';
 import { CreateBlogDto } from './dto/CreateBlog.dto';
 import { Model } from 'mongoose';
 import { UpdateBlogDto } from './dto/updateBlogDto';
-import { AlgoliaBlog } from 'src/models/AlgoliaSearchResponse';
+import { AlgoliaBlog } from 'src/blogs/models/AlgoliaSearchResponse';
 
 describe('BlogsService', () => {
   let service: BlogsService;
