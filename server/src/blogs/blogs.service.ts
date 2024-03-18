@@ -1,7 +1,7 @@
 import { HttpService } from '@nestjs/axios';
 import { HttpException, Injectable, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Blog } from 'src/models/Blog.schema';
+import { Blog } from '../models/Blog.schema';
 import { Model } from 'mongoose';
 import { CreateBlogDto } from './dto/CreateBlog.dto';
 import { catchError, firstValueFrom } from 'rxjs';
@@ -12,6 +12,7 @@ import {
 import { AxiosError } from 'axios';
 import { UpdateBlogDto } from './dto/updateBlogDto';
 import mongoose from 'mongoose';
+import { Cron } from '@nestjs/schedule';
 
 @Injectable()
 export class BlogsService {
@@ -20,6 +21,11 @@ export class BlogsService {
     private readonly httpService: HttpService,
     @InjectModel(Blog.name) private BlogModel: Model<Blog>,
   ) {}
+
+  @Cron('0 * * * *')
+  handleHourlyTask() {
+    this.getBlogs();
+  }
 
   async createBlog(blog: CreateBlogDto): Promise<Blog> {
     const newBlog = new this.BlogModel(blog);
