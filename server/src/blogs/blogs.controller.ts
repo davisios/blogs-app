@@ -1,18 +1,51 @@
 import { BlogsService } from './blogs.service';
-import { Controller, Post, Body, Get } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Put,
+  Param,
+  Delete,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { CreateBlogDto } from './dto/CreateBlog.dto';
+import { UpdateBlogDto } from './dto/updateBlogDto';
+import { Blog } from 'src/models/Blog.schema';
 
 @Controller('blogs')
 export class BlogsController {
   constructor(private readonly blogsService: BlogsService) {}
 
   @Post()
-  async createBlog(@Body() blog: CreateBlogDto): Promise<any> {
-    return await this.blogsService.createBlog(blog);
+  @UsePipes(new ValidationPipe())
+  createBlog(@Body() blog: CreateBlogDto): Promise<Blog> {
+    return this.blogsService.createBlog(blog);
   }
 
   @Get()
-  async getBlogs(): Promise<any> {
-    return await this.blogsService.getBlogs();
+  getBlogs(): Promise<Blog[]> {
+    return this.blogsService.getBlogs();
+  }
+
+  @Get(':id')
+  getBlogById(@Param('id') id: string): Promise<Blog> {
+    return this.blogsService.getBlogById(id);
+  }
+
+  @Put(':id')
+  @UsePipes(new ValidationPipe())
+  updateBlog(
+    @Param('id') id: string,
+    @Body()
+    blog: UpdateBlogDto,
+  ): Promise<Blog> {
+    return this.blogsService.updateBlog(id, blog);
+  }
+
+  @Delete(':id')
+  deleteBlog(@Param('id') id: string): Promise<void> {
+    return this.blogsService.deleteBlog(id);
   }
 }
