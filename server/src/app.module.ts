@@ -1,19 +1,18 @@
-
 import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { BlogsModule } from './blogs/blogs.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://locahost/blogs'),
+    MongooseModule.forRoot('mongodb://127.0.0.1/blogs'),
     HttpModule.register({
       timeout: 5000,
       maxRedirects: 5,
     }),
+    BlogsModule,
   ],
-  controllers: [AppController],
   providers: [AppService],
 })
 export class AppModule {}
