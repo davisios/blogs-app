@@ -1,0 +1,8 @@
+**/.git
+**/node_modules
+**/build
+**/tsconfig**
+**/eslintrc**
+**/prettierrc**
+**/prettierrc**
+**/nest**
