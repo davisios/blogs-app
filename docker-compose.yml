@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  client:
+    build: ./client
+    container_name: blogsFe
+    ports:
+      - '3000:3000'
+
+  mongo_db_blog:
+    container_name: mongo_db_blog
+    image: mongo:latest
+    ports:
+      - '27017:27017'
+
+  server:
+    build: ./server
+    container_name: blogsBe
+    ports:
+      - '5000:5000'
+    depends_on:
+      - mongo_db_blog
+    links:
+      - mongo_db_blog
