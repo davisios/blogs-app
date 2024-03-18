@@ -15,11 +15,5 @@ export class CreateBlogDto {
   author: string;
   @IsNotEmpty()
   @IsString()
-  points: number;
-  @IsNotEmpty()
-  @IsString()
-  num_comments: number;
-  @IsNotEmpty()
-  @IsString()
-  story_text: string;
+  story_url: string;
 }

@@ -10,11 +10,7 @@ export class Blog {
   @Prop({ required: true })
   author: string;
   @Prop({ required: true })
-  points: number;
-  @Prop({ required: true })
-  num_comments: number;
-  @Prop({ required: true })
-  story_text: string;
+  story_url: string;
 }
 
 export const BlogsSchema = SchemaFactory.createForClass(Blog);

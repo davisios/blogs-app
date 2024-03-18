@@ -10,7 +10,4 @@ export class UpdateBlogDto {
   @IsString()
   @IsOptional()
   points?: number;
-  @IsString()
-  @IsOptional()
-  story_text?: string;
 }

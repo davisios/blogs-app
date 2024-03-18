@@ -7,12 +7,13 @@ export interface AlgoliaBlog {
   created_at: string;
   title: string;
   author: string;
-  points: number;
-  num_comments: number;
   objectID: string;
+  story_url: {
+    value: string;
+  };
   _highlightResult: {
-    story_text: {
-      value: string;
+    story_title?: {
+      value?: string;
     };
   };
 }

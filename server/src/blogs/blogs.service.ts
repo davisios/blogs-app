@@ -76,11 +76,15 @@ export class BlogsService {
       return currentBlogs;
     }
     const lastBlog: AlgoliaBlog = blogs[0];
+    const title =
+      lastBlog._highlightResult?.story_title?.value || lastBlog.title;
+    const story_url = lastBlog.story_url;
     const currentLastBlog: CreateBlogDto = currentBlogs[0];
     if (currentLastBlog.objectID !== lastBlog.objectID) {
       const newBlog = new this.BlogModel({
         ...lastBlog,
-        story_text: lastBlog._highlightResult.story_text.value,
+        title,
+        story_url,
       });
       await this.createBlog(newBlog);
     }
