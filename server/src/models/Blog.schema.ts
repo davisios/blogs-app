@@ -8,15 +8,13 @@ export class Blog {
   @Prop({ required: true })
   title: string;
   @Prop({ required: true })
-  url: string;
-  @Prop({ required: true })
   author: string;
   @Prop({ required: true })
   points: number;
   @Prop({ required: true })
   num_comments: number;
   @Prop({ required: true })
-  highlightResult: string;
+  story_text: string;
 }
 
 export const BlogsSchema = SchemaFactory.createForClass(Blog);

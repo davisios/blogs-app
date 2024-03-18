@@ -6,13 +6,12 @@ export interface AlgoliaSearchResponse {
 export interface AlgoliaBlog {
   created_at: string;
   title: string;
-  url: string;
   author: string;
   points: number;
   num_comments: number;
   objectID: string;
   _highlightResult: {
-    title: {
+    story_text: {
       value: string;
     };
   };

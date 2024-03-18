@@ -1,4 +1,4 @@
-import { IsNotEmpty , IsString} from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateBlogDto {
   @IsNotEmpty()
@@ -12,9 +12,6 @@ export class CreateBlogDto {
   title: string;
   @IsNotEmpty()
   @IsString()
-  url: string;
-  @IsNotEmpty()
-  @IsString()
   author: string;
   @IsNotEmpty()
   @IsString()
@@ -24,5 +21,5 @@ export class CreateBlogDto {
   num_comments: number;
   @IsNotEmpty()
   @IsString()
-  highlightResult: string;
+  story_text: string;
 }

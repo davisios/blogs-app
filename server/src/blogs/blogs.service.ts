@@ -4,6 +4,12 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Blog } from 'src/models/Blog.schema';
 import { Model } from 'mongoose';
 import { CreateBlogDto } from './dto/CreateBlog.dto';
+import { catchError, firstValueFrom, last } from 'rxjs';
+import {
+  AlgoliaBlog,
+  AlgoliaSearchResponse,
+} from 'src/models/AlgoliaSearchResponse';
+import { AxiosError } from 'axios';
 
 @Injectable()
 export class BlogsService {
@@ -18,23 +24,34 @@ export class BlogsService {
   }
 
   async getBlogs(): Promise<any> {
-    // async getBlogs(): Promise<AlgoliaSearchResponse> {
-    // const { data } = await firstValueFrom(
-    //   this.httpService
-    //     .get<AlgoliaSearchResponse>(
-    //       'https://hn.algolia.com/api/v1/search_by_date?query=nodejs',
-    //     )
-    //     .pipe(
-    //       catchError((error: AxiosError) => {
-    //         this.logger.error(error.response.data);
-    //         throw 'An error happened!';
-    //       }),
-    //     ),
-    // );
-    // const hits: AlgoliaBlog[] = data.hits;
-    // //TODO get all db blogs latest dbhit
-    // //if does not match the id of the last hit then insert it
-
-    return [];
+    const { data } = await firstValueFrom(
+      this.httpService
+        .get<AlgoliaSearchResponse>(
+          'https://hn.algolia.com/api/v1/search_by_date?query=nodejs',
+        )
+        .pipe(
+          catchError((error: AxiosError) => {
+            this.logger.error(error.response.data);
+            throw 'An error happened!';
+          }),
+        ),
+    );
+    const hits: AlgoliaBlog[] = data.hits;
+    const currentBlogs = await this.BlogModel.find().sort({
+      created_at: 'desc',
+    });
+    if (!hits.length) {
+      return currentBlogs;
+    }
+    const lastBlog: AlgoliaBlog = hits[0];
+    const currentLastBlog: CreateBlogDto = currentBlogs[0];
+    if (currentLastBlog.objectID !== lastBlog.objectID) {
+      const newBlog = new this.BlogModel({
+        ...lastBlog,
+        story_text: lastBlog._highlightResult.story_text.value,
+      });
+      await this.createBlog(newBlog);
+    }
+    return this.BlogModel.find().sort({ created_at: 'desc' });
   }
 }
