@@ -28,8 +28,7 @@ export class BlogsService {
   }
 
   async createBlog(blog: CreateBlogDto): Promise<Blog> {
-    const newBlog = new this.BlogModel(blog);
-    return newBlog.save();
+    return this.BlogModel.create(blog);
   }
 
   async deleteBlog(id: string): Promise<void> {

@@ -12,5 +12,5 @@ export class UpdateBlogDto {
   points?: number;
   @IsString()
   @IsOptional()
-  story_text: string;
+  story_text?: string;
 }
