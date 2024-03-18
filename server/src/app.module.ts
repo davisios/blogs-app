@@ -1,11 +1,12 @@
 import { HttpModule } from '@nestjs/axios';
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { AppService } from './app.service';
 import { BlogsModule } from './blogs/blogs.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
+    ScheduleModule.forRoot(),
     MongooseModule.forRoot('mongodb://127.0.0.1/blogs'),
     HttpModule.register({
       timeout: 5000,
@@ -13,6 +14,6 @@ import { BlogsModule } from './blogs/blogs.module';
     }),
     BlogsModule,
   ],
-  providers: [AppService],
+  providers: [],
 })
 export class AppModule {}
