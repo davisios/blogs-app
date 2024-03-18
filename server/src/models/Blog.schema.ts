@@ -11,6 +11,8 @@ export class Blog {
   author: string;
   @Prop({ required: true })
   story_url: string;
+  @Prop({ required: true })
+  valid: boolean;
 }
 
 export const BlogsSchema = SchemaFactory.createForClass(Blog);

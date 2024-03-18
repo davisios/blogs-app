@@ -62,29 +62,33 @@ describe('BlogsService', () => {
 
     const mockSavedBlog = {
       ...mockCreateBlogDto,
+      valid: true,
     };
 
-    const spy = jest.spyOn(models, 'create').mockImplementationOnce(() =>
-      Promise.resolve({
-        ...mockSavedBlog,
-      } as any),
-    );
+    const spy = jest
+      .spyOn(models, 'create')
+      .mockResolvedValue(mockSavedBlog as any);
 
     const result = await service.createBlog(mockCreateBlogDto);
 
     expect(result).toEqual(expect.objectContaining(mockSavedBlog));
-    expect(spy).toHaveBeenCalledWith(mockCreateBlogDto);
+    expect(spy).toHaveBeenCalledWith(mockSavedBlog);
   });
 
   describe('deleteBlog', () => {
     it('should delete a blog', async () => {
       const id = '60c1f9fca6462b001fd415f1';
+      const updatedBlog = { valid: false };
+      const spy = jest
+        .spyOn(models, 'findByIdAndUpdate')
+        .mockResolvedValue(updatedBlog);
 
-      jest.spyOn(models, 'findByIdAndDelete').mockResolvedValue(null);
-
-      await expect(service.deleteBlog(id)).resolves.toBeNull();
-      expect(models.findByIdAndDelete).toHaveBeenCalledWith(id);
+      await expect(service.deleteBlog(id));
+      expect(spy).toHaveBeenCalledWith(id, {
+        valid: false,
+      });
     });
+
     it('should throw an error for invalid blog ID', async () => {
       const id = 'invalid_id';
       await expect(service.deleteBlog(id)).rejects.toThrow(HttpException);

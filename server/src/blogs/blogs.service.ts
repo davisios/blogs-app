@@ -28,12 +28,12 @@ export class BlogsService {
   }
 
   async createBlog(blog: CreateBlogDto): Promise<Blog> {
-    return this.BlogModel.create(blog);
+    return this.BlogModel.create({ ...blog, valid: true });
   }
 
   async deleteBlog(id: string): Promise<void> {
     const isValid = mongoose.Types.ObjectId.isValid(id);
-    if (isValid) return this.BlogModel.findByIdAndDelete(id);
+    if (isValid) return this.BlogModel.findByIdAndUpdate(id, { valid: false });
     throw new HttpException('invalid id', 400);
   }
 

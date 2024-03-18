@@ -37,6 +37,7 @@ describe('BlogsController', () => {
       created_at: '2021-03-11T21:38:36Z',
       objectID: '1',
       title: 'Example Blog Title',
+      valid: true,
       author: 'John Doe',
       story_url: 'some story',
     };
@@ -54,6 +55,7 @@ describe('BlogsController', () => {
         title: 'Example Blog Title',
         author: 'John Doe',
         story_url: 'some story',
+        valid: true,
       },
       {
         created_at: '2021-03-11T21:38:36Z',
@@ -61,6 +63,7 @@ describe('BlogsController', () => {
         title: 'Example Blog Title 2',
         author: 'Jane Doe',
         story_url: 'some story',
+        valid: true,
       },
     ];
 
@@ -91,6 +94,7 @@ describe('BlogsController', () => {
       title: 'Example Blog Title',
       story_url: 'some story',
       author: 'John Doe',
+      valid: true,
     };
 
     jest.spyOn(service, 'createBlog').mockResolvedValue(createdBlog);
@@ -111,6 +115,7 @@ describe('BlogsController', () => {
       title: 'Example Blog Title',
       story_url: 'some story',
       author: 'John Doe',
+      valid: true,
     };
     jest.spyOn(service, 'updateBlog').mockResolvedValue(updatedBlog);
     const result = await controller.updateBlog(id, updateBlogDto);
